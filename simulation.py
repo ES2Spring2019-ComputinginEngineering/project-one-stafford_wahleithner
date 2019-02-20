@@ -1,29 +1,35 @@
-import from microbit *
 import numpy as np
+import math as m
 
-def update_system(acc,pos,vel,time1,time2):
-    dt = time2 - time2
-    pos_Next =
-    vel_Next =
-    return pos_Next, vel_Next
+g = 9.81
 
-def print_system(time,pos,vel):
+def update_system(acc,ang,vel,time1,time2):
+    dt = time2 - time1
+    ang_Next = ang + (vel * dt)
+    vel_Next = vel + (acc * dt)
+    acc_Next = g*(m.cos(m.pi/2 - ang_Next))
+    return ang_Next, vel_Next, acc_Next
+
+def print_system(time,ang,vel,acc):
     print("TIME:    ", time)
-    print("POSITION:    ", pos)
-    print("VELOCITY:    ", vel, '\n')
+    print("ANGLE:    ", ang)
+    print("ANGULAR VELOCITY:    ", vel)
+    print("ACCELERATION:    ", acc, '\n')
 
 #initial conditions
-pos = [0]
+ang = [0]
 vel = [0]
-acc = [0,1,2,3,4,4,2,2,1,0,0,0,0,-1,-1,-2,-2,-2,-3,-4,-4]
+acc = [0]
+
+time = np.linspace(0,20,21)
+print_system(time[0],ang[0], vel[0], acc[0])
 
 i = 1
 while i < len(time):
-    #update position and velocity using previous values and time step
-    pos_Next, vel_Next = update_system(acc[i], pos[i - 1], vel[i -1], time[i - 1], time[i])
-    pos.append(pos_Next)
+    #update angle and velocity using previous values and time step
+    ang_Next, vel_Next, acc_Next = update_system(acc[i-1], ang[i - 1], vel[i -1], time[i - 1], time[i])
+    ang.append(ang_Next)
     vel.append(vel_Next)
-    print_system(time[i], pos[i], vel[i])
-    i =+ 1
-time = np.linspace(0,20,21)
-print_system(time[0],pos[0], vel[0])
+    acc.append(acc_Next)
+    print_system(time[i], ang[i], vel[i], acc[i])
+    i += 1
