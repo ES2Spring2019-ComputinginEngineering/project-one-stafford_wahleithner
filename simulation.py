@@ -1,28 +1,30 @@
 import numpy as np
 import math as m
 
-g = 9.81
+g = -9.81
 
 def update_system(acc,ang,vel,time1,time2):
     dt = time2 - time1
     ang_Next = ang + (vel * dt)
     vel_Next = vel + (acc * dt)
-    acc_Next = g*(m.cos(m.pi/2 - ang_Next))
+    acc_Next = (g)*(m.sin(ang_Next))
     return ang_Next, vel_Next, acc_Next
 
 def print_system(time,ang,vel,acc):
-    print("TIME:    ", time)
-    print("ANGLE:    ", ang)
-    print("ANGULAR VELOCITY:    ", vel)
-    print("ACCELERATION:    ", acc, '\n')
+    #print("TIME:    ", time)
+    #print("ANGLE:    ", ang)
+    #print("ANGULAR VELOCITY:    ", vel)
+    #print("ACCELERATION:    ", acc, '\n')
+    print((ang, vel, acc))
 
 #initial conditions
-ang = [0]
+ang = [m.pi/4]
 vel = [0]
-acc = [0]
+acc = [(g)*(m.sin(ang[0]))]
 
-time = np.linspace(0,20,21)
+time = np.linspace(0,20,20001)
 print_system(time[0],ang[0], vel[0], acc[0])
+
 
 i = 1
 while i < len(time):
