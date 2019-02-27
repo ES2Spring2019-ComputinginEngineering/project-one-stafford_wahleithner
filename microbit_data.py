@@ -14,7 +14,7 @@ with open("pendulum_data.txt", "w") as data:
         ay = accelerometer.get_y()
         az = accelerometer.get_z()
         elapsed_time = running_time() - start_time
-        numbers = str(elapsed_time) + ", " + str(ax) + ", " + str(ay) + ", " + str(az) + "/r/n"
+        numbers = str(elapsed_time) + ", " + str(ax) + ", " + str(ay) + ", " + str(az) + "\r\n"
         data.write(numbers)
         sleep(50)
     data.close()
