@@ -11,7 +11,7 @@ with open(filename, "w") as data:
         ax = accelerometer.get_x()
         ay = accelerometer.get_y()
         az = accelerometer.get_z()
-        elapsed_time = running_time() - start_time
+        elapsed_time = (running_time() - start_time) / 1000
         numbers = str(elapsed_time) + ", " + str(ax) + ", " + str(ay) + ", " + str(az) + "\r\n"
         data.write(numbers)
     data.close()
