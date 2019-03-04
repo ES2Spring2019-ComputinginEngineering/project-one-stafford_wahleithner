@@ -1,5 +1,6 @@
 #check: confirm equations, how to add plots to file (+ need file?), 
 #how to get velocity/acceleration graphs, format plots (period), report, due date time!!
+#actually measure pendulum
 
 import matplotlib.pyplot as plt
 import math as m
