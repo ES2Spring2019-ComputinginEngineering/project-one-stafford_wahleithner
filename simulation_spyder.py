@@ -3,12 +3,13 @@ import numpy as np
 import math as m
 
 g = -9.81
+l= 0.5
 
 def update_system(acc,ang,vel,time1,time2):
     dt = time2 - time1
     ang_Next = ang + (vel * dt)
     vel_Next = vel + (acc * dt)
-    acc_Next = (g)*(m.sin(ang_Next))
+    acc_Next = g/l*m.sin(ang)
     return ang_Next, vel_Next, acc_Next
 
 #def print_system(time,ang,vel,acc):
@@ -21,8 +22,7 @@ def update_system(acc,ang,vel,time1,time2):
 #initial conditions
 ang = [m.pi/4]
 vel = [0]
-acc = [(g)*(m.sin(ang[0]))]
-
+acc = [0]
 time = np.linspace(0,20,20001)
 #print_system(time[0],ang[0], vel[0], acc[0])
 
