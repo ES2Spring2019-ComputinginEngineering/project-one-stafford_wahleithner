@@ -40,7 +40,6 @@ while i < len(time):
 plt.figure(figsize = (4,6))
 plt.subplot(3,1,1)
 plt.plot(time, ang, 'r-') 
-
 plt.xlabel('Time (seconds)')
 plt.ylabel('Angle (rad)')
 plt.title('Angle vs Time')
