@@ -34,7 +34,7 @@ while i < len(time):
     ang.append(ang_Next)
     vel.append(vel_Next)
     acc.append(acc_Next)
- #   print_system(time[i], ang[i], vel[i], acc[i])
+ #  print_system(time[i], ang[i], vel[i], acc[i])
     i += 1
 
 plt.figure(figsize = (4,6))
