@@ -90,7 +90,7 @@ y = np.array(ang_list[20:285])
 
 # Apply median filter to both original and noisy wave
 y_filt = sig.medfilt(y, 7)
-
+time_filt = sig.medfilt(time, 7)
 # Find peaks of all waves
 y_pks, _ = sig.find_peaks(y)
 y_filt_pks, _ = sig.find_peaks(y_filt)
@@ -122,7 +122,7 @@ period_list = []        #the time distance between every other x intersection
 for i in range(len(y_filt)):
     #when it goes from positive to negative (these are half of the intersects)
     if y_filt[i] < 0 and y_filt[i+1] > 0:
-        p = (t_list[i+1] + t_list[i]) / 2
+        p = (time_filt[i+1] + time_filt[i]) / 2
         intersect_list.append(p)
 for i in range(len(intersect_list)-2):
     m = intersect_list[i+1] - intersect_list[i]
@@ -147,7 +147,7 @@ print("Average period:  ", period_average)
 #print(every_intersect_list)
 #print("peaks: ", peaks_list)
 
-
+#Finds every single peak, not just the max of the sin wave
 #peaks_angle = []
 #peaks_time = []
 #for i in range(len(ang_list[20:285])-2):
@@ -156,3 +156,15 @@ print("Average period:  ", period_average)
 #        peaks_time.append(t_list[i])
 #print("peaks_angle:  ", peaks_angle)
 #print("peaks_time:  ", peaks_time)
+
+
+#Gives us some peaks but not all
+peaks_angle = []
+peaks_time = []
+for i in range(len(y_filt)-2):
+    if y_filt[i] > y_filt[i-1] and y_filt[i] > y_filt[i+1]:
+        peaks_angle.append(y_filt[i])
+        peaks_time.append(time_filt[i])
+print("peaks_angle:  ", peaks_angle)
+print("peaks_time:  ", peaks_time)
+
