@@ -53,7 +53,7 @@ for i in range(len(vel_list)-1):
     
 
 #Plot data
-plt.figure(figsize = (4,6))
+plt.figure(figsize = (6,6))
 
 plt.subplot(3,1,1)
 plt.plot(t_list, ang_list, 'r-') 
@@ -93,17 +93,24 @@ y_filt = sig.medfilt(y, 7)
 
 # Find peaks of all waves
 y_pks, _ = sig.find_peaks(y)
-
 y_filt_pks, _ = sig.find_peaks(y_filt)
 
 # Plot waveforms and their peaks
 plt.subplot(2,1,1)
 plt.plot(time, y, 'r-', time[y_pks], y[y_pks], 'b.')
-plt.title('Original')
+plt.xlabel('Time (seconds)')
+plt.ylabel('Angle (rad)')
+plt.title('Original Angle vs Time, Significant Data')
+plt.xlim((0, float(a[0])))
+plt.grid()
 
 plt.subplot(2,1,2)
 plt.plot(time, y_filt, 'r-', time[y_filt_pks], y_filt[y_filt_pks], 'b.')
-plt.title('Original Median Filtered')
+plt.xlabel('Time (seconds)')
+plt.ylabel('Angle (rad)')
+plt.title('Median Filtered Angle vs Time')
+plt.xlim((0, float(a[0])))
+plt.grid()
 
 plt.tight_layout()
 plt.show()
@@ -123,7 +130,24 @@ for i in range(len(intersect_list)-2):
 period_average = sum(period_list) / len(period_list)
 print("Average period:  ", period_average)
 
-#Find peaks
+
+#Failed attempts at peaks:
+
+#every_intersect_list = []
+#peaks_list = []
+#for i in range(len(y_filt)):
+#    #when it goes from positive to negative (these are half of the intersects)
+#    if (y_filt[i] < 0 and y_filt[i+1] > 0) or (y_filt[i] > 0 and y_filt[i+1] < 0):
+#        every = (t_list[i+1] + t_list[i]) / 2
+#        every_intersect_list.append(every)
+#for i in range(len(every_intersect_list)-1):
+#    m = (every_intersect_list[i+1] + every_intersect_list[i])/2
+#    if m > 0:
+#        peaks_list.append(m)
+#print(every_intersect_list)
+#print("peaks: ", peaks_list)
+
+
 #peaks_angle = []
 #peaks_time = []
 #for i in range(len(ang_list[20:285])-2):
