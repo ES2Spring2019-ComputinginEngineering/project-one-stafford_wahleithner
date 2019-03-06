@@ -13,7 +13,6 @@ os.chdir("C:\\Users\zosia\mu_code")
 filename = input("What is the filename? ")
 fin = open(filename) #Get microbit data file name
 
-
 a = []
 ang_list = []
 vel_list = []
@@ -84,7 +83,7 @@ fin.close()
 #plt.xlim((0, float(a[0])))
 #plt.grid()
 
-#Cutting our graph to when the pendulum was moving in harmonic motion
+#Cutting our graph to when the pendulum moves in harmonic motion
 time = np.array(t_list[20:285])
 y = np.array(ang_list[20:285])
 
@@ -92,8 +91,8 @@ y = np.array(ang_list[20:285])
 y_filt = sig.medfilt(y, 7)
 time_filt = sig.medfilt(time, 7)
 # Find peaks of all waves
-y_pks, _ = sig.find_peaks(y)
-y_filt_pks, _ = sig.find_peaks(y_filt)
+y_pks, _ = sig.find_peaks(y, prominence = 0.05)
+y_filt_pks, _ = sig.find_peaks(y_filt, prominence = 0.05)
 
 # Plot waveforms and their peaks
 plt.subplot(2,1,1)
@@ -115,56 +114,19 @@ plt.grid()
 plt.tight_layout()
 plt.show()
 
-#Find period
-intersect_list = []     #when the graph intersects the x axis
-period_list = []        #the time distance between every other x intersection
+#Find Peaks
+peaks = y_filt_pks
+y_peaks_list = np.ndarray.tolist(y[peaks])
+time_peaks_list = np.ndarray.tolist(time[peaks])
+print("Angle of Peaks: ", y_peaks_list)
+print("Time of Peaks: ", time_peaks_list)
 
-for i in range(len(y_filt)):
-    #when it goes from positive to negative (these are half of the intersects)
-    if y_filt[i] < 0 and y_filt[i+1] > 0:
-        p = (time_filt[i+1] + time_filt[i]) / 2
-        intersect_list.append(p)
-for i in range(len(intersect_list)-2):
-    m = intersect_list[i+1] - intersect_list[i]
+#Find Period
+period_list = []
+for i in range(len(time_peaks_list)-1):
+    m = time_peaks_list[i+1] - time_peaks_list[i]
     period_list.append(m)
 period_average = sum(period_list) / len(period_list)
-print("Average period:  ", period_average)
-
-
-#Failed attempts at peaks:
-
-#every_intersect_list = []
-#peaks_list = []
-#for i in range(len(y_filt)):
-#    #when it goes from positive to negative (these are half of the intersects)
-#    if (y_filt[i] < 0 and y_filt[i+1] > 0) or (y_filt[i] > 0 and y_filt[i+1] < 0):
-#        every = (t_list[i+1] + t_list[i]) / 2
-#        every_intersect_list.append(every)
-#for i in range(len(every_intersect_list)-1):
-#    m = (every_intersect_list[i+1] + every_intersect_list[i])/2
-#    if m > 0:
-#        peaks_list.append(m)
-#print(every_intersect_list)
-#print("peaks: ", peaks_list)
-
-#Finds every single peak, not just the max of the sin wave
-#peaks_angle = []
-#peaks_time = []
-#for i in range(len(ang_list[20:285])-2):
-#    if ang_list[i] > ang_list[i-1] and ang_list[i] > ang_list[i+1]:
-#        peaks_angle.append(ang_list[i])
-#        peaks_time.append(t_list[i])
-#print("peaks_angle:  ", peaks_angle)
-#print("peaks_time:  ", peaks_time)
-
-
-#Gives us some peaks but not all
-peaks_angle = []
-peaks_time = []
-for i in range(len(y_filt)-2):
-    if y_filt[i] > y_filt[i-1] and y_filt[i] > y_filt[i+1]:
-        peaks_angle.append(y_filt[i])
-        peaks_time.append(time_filt[i])
-print("peaks_angle:  ", peaks_angle)
-print("peaks_time:  ", peaks_time)
+print("Average Period:  ", period_average, " seconds")
+    
 
