@@ -50,4 +50,11 @@ Real_data_parsing.py:
 - graphs filtered data with peaks marked
 - returns angles and times of peaks and period
 
+Period_Analysis.py:
+- Takes a list of lengths, simulation periods, and real world periods
+- plots the length vs period for both simulation and real world data
+- takes the log of lists and turns them into arrays
+- plots the log length vs log period for both simulation and real world data to get a linear graph
+- find the slope and y intercept of these linear graphs
+
 Thanks! :)
