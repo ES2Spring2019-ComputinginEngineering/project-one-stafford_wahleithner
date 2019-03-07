@@ -1,6 +1,4 @@
-#check: confirm equations, how to add plots to file (+ need file?), 
-#how to get velocity/acceleration graphs, format plots (period), report, due date time!!
-#actually measure pendulum
+#This will run on our test_data, which is data from length 3
 
 import matplotlib.pyplot as plt
 import math as m
@@ -15,7 +13,7 @@ fin = open(filename) #Get microbit data file name
 
 #start and end of significant data, used in line 72
 s = 20
-e = 177
+e = 285
 
 a = []
 ang_list = []
