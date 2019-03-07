@@ -1,17 +1,22 @@
-#This will run on our test_data, which is data from length 3
+#Names: Gillian Wahleithner and Zosia Stafford
+#Real_data_parsing.py:
+    #Parses data from txt file (gets angles and times)
+    #graphs angle vs time
+    #graphs significant data (when in harmonic motion)
+    #graphs filtered data with peaks marked
+    #returns angles and times of peaks and period
+
+#This will run on our Test_data.txt, which is data from length 3
 
 import matplotlib.pyplot as plt
 import math as m
 import numpy as np
 import scipy.signal as sig
-import os
-cwd = os.getcwd()
-os.chdir("C:\\Users\zosia\mu_code")
 
 filename = input("What is the filename? ")
 fin = open(filename) #Get microbit data file name
 
-#start and end of significant data, used in line 72
+#start and end of significant data, used in line 64
 s = 20
 e = 285
 
@@ -22,7 +27,6 @@ acc_list = []
 t_list = []
 x_list = []
 y_list = []
-g = -9.81
 
 #Parsing the microbit file
 for line in fin:
@@ -42,25 +46,9 @@ for line in fin:
     ang_list.append(ang)
     x_list.append(x)
     y_list.append(y)
-    
-    #Get list of velocity by differentiating
-for i in range(len(ang_list)-1):
-    ang_diff = ang_list[i+1] - ang_list[i]
-    time_diff = t_list[i+1] - t_list[i]
-    vel = ang_diff / time_diff
-    vel_list.append(vel)
-    
-    #Get list of acceleration by differentiating
-for i in range(len(vel_list)-1):
-    vel_diff = vel_list[i+1] - vel_list[i]
-    time_diff = t_list[i+1] - t_list[i]
-    acc = vel_diff / time_diff
-    acc_list.append(acc)
-    
 
-#Plot data
+#Plot angle vs time
 plt.figure(figsize = (6,6))
-
 plt.subplot(3,1,1)
 plt.plot(t_list, ang_list, 'r-') 
 plt.xlabel('Time (seconds)')
@@ -72,22 +60,14 @@ plt.tight_layout()
 plt.show()
 fin.close()
 
-#plt.subplot(3,1,3)
-#plt.plot(t_list[s:e], y_list[s:e], 'k-') 
-#plt.xlabel('Time (seconds)')
-#plt.ylabel('Angular Acceleration (rad/s^2)')
-#plt.title('Angular Acceleration vs Time')
-#plt.xlim((0, float(a[0])))
-#plt.grid()
-
 #Cutting our graph to when the pendulum moves in harmonic motion
 time = np.array(t_list[s:e])
 y = np.array(ang_list[s:e])
 
-# Apply median filter to both original and noisy wave
+# Apply median filter to our angle and time array
 y_filt = sig.medfilt(y, 7)
 time_filt = sig.medfilt(time, 7)
-# Find peaks of all waves
+# Find peaks of waves
 y_pks, _ = sig.find_peaks(y, prominence = 0.05)
 y_filt_pks, _ = sig.find_peaks(y_filt, prominence = 0.05)
 
@@ -108,7 +88,6 @@ plt.ylabel('Angle (rad)')
 plt.title('Median Filtered Angle vs Time')
 plt.xlim((0, float(a[0])))
 plt.grid()
-
 plt.tight_layout()
 plt.show()
 
@@ -126,5 +105,3 @@ for i in range(len(time_peaks_list)-1):
     period_list.append(m)
 period_average = sum(period_list) / len(period_list)
 print("Average Period:  ", period_average, " seconds")
-    
-

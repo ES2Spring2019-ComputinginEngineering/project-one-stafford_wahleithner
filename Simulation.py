@@ -1,8 +1,21 @@
+#Names: Gillian Wahleithner and Zosia Stafford
+#Simulation.py:
+    #set initial conditions
+    #update system according to our equations
+    #for a specified time, update values into lists
+    #graph lists of angles, angular velocity, and angular acceleration
+    #find peaks, return peak angles and time and calculate period
+
 import matplotlib.pyplot as plt
 import numpy as np
 import math as m
 import scipy.signal as sig
 
+#initial conditions
+ang = [m.pi/4]
+vel = [0]
+acc = [0]
+time = np.linspace(0,10,10001)
 g = -9.81
 l= 0.38
 
@@ -13,12 +26,6 @@ def update_system(acc,ang,vel,time1,time2):
     acc_Next = g/l*m.sin(ang)
     return ang_Next, vel_Next, acc_Next
 
-#initial conditions
-ang = [m.pi/4]
-vel = [0]
-acc = [0]
-time = np.linspace(0,10,10001)
-
 #update angle and velocity using previous values and time step
 i = 1
 while i < len(time):
@@ -28,6 +35,7 @@ while i < len(time):
     acc.append(acc_Next)
     i += 1
 
+#Plot angle, angular velocity, and angular acceleration
 plt.figure(figsize = (4,6))
 plt.subplot(3,1,1)
 plt.plot(time, ang, 'r-') 
@@ -56,13 +64,13 @@ plt.tight_layout()
 plt.show()
 
 #Find Peaks
-time_a = np.array(time)
+time_a = np.array(time)     #Make time and angle lists into arrays
 ang_a = np.array(ang)
 ang_peaks, _ = sig.find_peaks(ang_a)
+pks = ang_peaks
 
-peaks = ang_peaks
-ang_peaks_list = np.ndarray.tolist(ang_a[peaks])
-time_peaks_list = np.ndarray.tolist(time_a[peaks])
+ang_peaks_list = np.ndarray.tolist(ang_a[pks])
+time_peaks_list = np.ndarray.tolist(time_a[pks])
 print("Peaks of Angle vs. Time graph:")
 print("Angle of Peaks: ", ang_peaks_list)
 print("Time of Peaks: ", time_peaks_list)
