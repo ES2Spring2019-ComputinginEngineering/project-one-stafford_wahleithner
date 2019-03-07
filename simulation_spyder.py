@@ -4,7 +4,7 @@ import math as m
 import scipy.signal as sig
 
 g = -9.81
-l= 0.375
+l= 0.72
 
 def update_system(acc,ang,vel,time1,time2):
     dt = time2 - time1
