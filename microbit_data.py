@@ -14,4 +14,5 @@ with open(filename, "w") as data:
         elapsed_time = (running_time() - start_time) / 1000
         numbers = str(elapsed_time) + ", " + str(ax) + ", " + str(ay) + ", " + str(az) + "\r\n"
         data.write(numbers)
+        sleep(20)
     data.close()
