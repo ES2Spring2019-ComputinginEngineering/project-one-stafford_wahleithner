@@ -15,8 +15,7 @@ The Real_data_parsing.py is our code that parses this file and returns a graph o
 a graph of significant data (after the pendulum starts moving and before we stop it), and a filtered
 graph with the peaks marked. It also returns a list of peak angles and times, as well as period. 
 This file is designed to read our data from length 3, titled Test_data.txt. For other data files, 
-we would change our bounds s and e (in line for 15) where the significant data is. We have a section of
-code commented out, which if uncommented will return a graph of acceleration.
+we would change our bounds s and e (in line for 15) where the significant data is.
 
 Real_data_parsing.py will ask for the file name, which in this case is Test_data.txt.
     
